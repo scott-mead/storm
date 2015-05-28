@@ -14,8 +14,8 @@ package 'git' do
 end
 
 # Install supervisor
-package 'supervisor' do
-  action :install
+execute 'supervisor_install' do
+  command 'easy_install supervisor'
 end
 
 # Create the software installation directory
