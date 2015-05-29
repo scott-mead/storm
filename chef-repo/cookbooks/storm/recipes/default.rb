@@ -25,7 +25,7 @@ directory "/etc/supervisord.d" do
   action :create
 end
 
-cookbook_file "etc/supervisord.conf" do
+cookbook_file "supervisord.conf" do
   path "/etc/supervisord.conf"
   action :create_if_missing
 end
@@ -93,7 +93,7 @@ link "/opt/storm/install/zookeeper/current" do
   to "/opt/storm/install/zookeeper/3.4.6"
 end
 
-cookbook_file "etc/supervisord.d/zookeeper.conf" do
+cookbook_file "zookeeper.conf" do
   path "/etc/supervisord.d/zookeeper.conf"
   action :create_if_missing
 end
