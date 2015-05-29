@@ -81,3 +81,9 @@ link "/opt/storm/install/zookeeper/current" do
   to "/opt/storm/install/zookeeper/3.4.6"
 end
 
+cookbook_file "zoo.cfg" do
+  path "/opt/storm/install/zookeeper/current/conf/zoo.cfg"
+  action :create_if_missing
+end
+
+
