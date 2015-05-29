@@ -18,6 +18,18 @@ execute 'supervisor_install' do
   command 'easy_install supervisor'
 end
 
+directory "/etc/supervisord.d" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
+cookbook_file "etc/supervisord.conf" do
+  path "/etc/supervisord.conf"
+  action :create_if_missing
+end
+
 # Create the software installation directory
 directory "/opt/storm/install" do
   owner 'root'
@@ -85,6 +97,7 @@ cookbook_file "etc/supervisord.d/zookeeper.conf" do
   path "/etc/supervisord.d/zookeeper.conf"
   action :create_if_missing
 end
+
 cookbook_file "zoo.cfg" do
   path "/opt/storm/install/zookeeper/current/conf/zoo.cfg"
   action :create_if_missing
