@@ -25,6 +25,13 @@ directory "/etc/supervisord.d" do
   action :create
 end
 
+directory "/var/log/supervisor" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
 cookbook_file "supervisord.conf" do
   path "/etc/supervisord.conf"
   action :create_if_missing
