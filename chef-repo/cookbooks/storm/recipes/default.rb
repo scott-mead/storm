@@ -34,7 +34,7 @@ end
 
 cookbook_file "supervisord.conf" do
   path "/etc/supervisord.conf"
-  action :create_if_missing
+  action :create
 end
 
 # Create the software installation directory
@@ -109,12 +109,12 @@ end
 
 cookbook_file "zookeeper.conf" do
   path "/etc/supervisord.d/zookeeper.conf"
-  action :create_if_missing
+  action :create
 end
 
 cookbook_file "zoo.cfg" do
   path "/opt/storm/install/zookeeper/current/conf/zoo.cfg"
-  action :create_if_missing
+  action :create
 end
 
 
