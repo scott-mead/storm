@@ -17,3 +17,10 @@ do
         printf "\t$line already configured\n"
     fi
 done
+
+diff /home/ec2-user/*.myid /tmp/zookeeper/myid
+
+if [ "$?" -ne 0 ] 
+then
+    cp /home/ec2-user/*.myid /tmp/zookeeper/myid
+fi
