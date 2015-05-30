@@ -16,7 +16,17 @@ counter=1
 
 fo = open ( "hosts","wb")
 for HOST in HOSTS:
-    fo.write(str(HOST[1]) + " " + str(HOST[0]).split('@')[1] + ',' + 'cluster' + str(counter) + '\n')
+    # Get the hostname
+    thehost=str(HOST[0].split('@'[1]
+
+    # Write this host to the hosts file
+    fo.write(str(HOST[1]) + " " + thehost + ',' + 'cluster' + str(counter) + '\n')
+
+    # Writeout the zookeeper id file
+    h.open (thehost +".myid","wb")
+    h.write(str(counter))
+    h.close()
+     
     counter+=1
 fo.close()
 
@@ -28,6 +38,8 @@ COMMANDS=['sudo yum -y localinstall https://opscode-omnibus-packages.s3.amazonaw
           'cd /opt/storm/chef-repo && sudo chef-solo -c solo.rb -j solo.json']
 
 for HOST in HOSTS:
+    thehost=str(HOST[0].split('@'[1]
+
     print("Now connecting to: " + str(HOST[0]).split('@')[1])
 
     cathost = subprocess.Popen(["scp", "hosts","%s:" % str(HOST[0])],
@@ -37,6 +49,12 @@ for HOST in HOSTS:
     print(cathost.stdout.readlines()) 
 
     cathost = subprocess.Popen(["scp", "placehosts.sh","%s:" % str(HOST[0])], 
+                               shell=False,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+    print(cathost.stdout.readlines()) 
+
+    cathost = subprocess.Popen(["scp", thehost+".myid","%s:" % str(HOST[0])], 
                                shell=False,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
