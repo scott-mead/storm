@@ -64,7 +64,7 @@ for HOST in HOSTS:
                                shell=False,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
-    print(cathost.stdout.readlines()) 
+    print(str(cathost.stdout.readlines())) 
 
     for COMMAND in COMMANDS:
         print("\tNow Executing: " + COMMAND)
@@ -72,10 +72,11 @@ for HOST in HOSTS:
                                shell=False,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
-        result = ssh.stdout.readlines()
-        if result == []:
+        #result = ssh.stdout.readlines()
+        print(str(ssh.stdout.readlines()))
+'''        if result == []:
             error = ssh.stderr.readlines()
             print >>sys.stderr, "ERROR: %s" % error
         else:
-            print result
+            print result'''
 

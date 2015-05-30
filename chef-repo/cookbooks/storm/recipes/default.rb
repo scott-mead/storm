@@ -13,6 +13,13 @@ package 'git' do
     action :install
 end
 
+# 
+# Create storm user
+#
+user 'storm' do
+   action :create
+end
+
 # Install supervisor
 execute 'supervisor_install' do
   command 'easy_install supervisor'
@@ -26,14 +33,19 @@ directory "/etc/supervisord.d" do
 end
 
 directory "/var/log/supervisor" do
-  owner 'root'
-  group 'root'
+  owner 'storm'
+  group 'storm'
   mode '0755'
   action :create
 end
 
 cookbook_file "supervisord.conf" do
   path "/etc/supervisord.conf"
+  action :create
+end
+
+cookbook_file "supervisord" do
+  path "/etc/init.d/supervisord"
   action :create
 end
 
@@ -45,7 +57,6 @@ directory "/opt/storm/install" do
   action :create
 end
 
-###
 ###
 # Setup Storm 
 ###
@@ -85,8 +96,8 @@ directory "/opt/storm/install/zookeeper" do
 end
 
 directory "/opt/storm/install/zookeeper/log" do
-  owner 'root'
-  group 'root'
+  owner 'storm'
+  group 'storm'
   mode '0755'
   action :create
 end
