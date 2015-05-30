@@ -84,9 +84,7 @@ link "/opt/storm/install/storm/current" do
 end
 
 ###
-###
 # Setup Zookeeper
-###
 ###
 directory "/opt/storm/install/zookeeper" do
   owner 'root'
