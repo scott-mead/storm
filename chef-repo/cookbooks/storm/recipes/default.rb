@@ -84,7 +84,7 @@ directory "/opt/storm/install/zookeeper" do
   action :create
 end
 
-directory "/var/log/zookeeper" do
+directory "/opt/storm/install/zookeeper/log" do
   owner 'root'
   group 'root'
   mode '0755'

@@ -17,13 +17,13 @@ counter=1
 fo = open ( "hosts","wb")
 for HOST in HOSTS:
     # Get the hostname
-    thehost=str(HOST[0].split('@'[1]
+    thehost=str(HOST[0].split('@')[1])
 
     # Write this host to the hosts file
     fo.write(str(HOST[1]) + " " + thehost + ',' + 'cluster' + str(counter) + '\n')
 
     # Writeout the zookeeper id file
-    h.open (thehost +".myid","wb")
+    h = open (thehost +".myid","wb")
     h.write(str(counter))
     h.close()
      
@@ -38,7 +38,7 @@ COMMANDS=['sudo yum -y localinstall https://opscode-omnibus-packages.s3.amazonaw
           'cd /opt/storm/chef-repo && sudo chef-solo -c solo.rb -j solo.json']
 
 for HOST in HOSTS:
-    thehost=str(HOST[0].split('@'[1]
+    thehost=str(HOST[0].split('@')[1])
 
     print("Now connecting to: " + str(HOST[0]).split('@')[1])
 
