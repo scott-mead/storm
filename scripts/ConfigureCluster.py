@@ -20,7 +20,7 @@ for HOST in HOSTS:
     thehost=str(HOST[0].split('@')[1])
 
     # Write this host to the hosts file
-    fo.write(str(HOST[1]) + " " + thehost + ',' + 'cluster' + str(counter) + '\n')
+    fo.write(str(HOST[1]) + " " + thehost + ' ' + 'cluster' + str(counter) + '\n')
 
     # Writeout the zookeeper id file
     h = open (thehost +".myid","wb")
