@@ -16,15 +16,16 @@
 
 prog="supervisord"
 
-prefix="/usr/"
+prefix="/usr/local"
 exec_prefix="${prefix}"
 prog_bin="${exec_prefix}/bin/supervisord"
+config_path="/etc/supervisord.conf"
 PIDFILE="/var/run/$prog.pid"
 
 start()
 {
         echo -n $"Starting $prog: "
-        daemon $prog_bin --pidfile $PIDFILE
+        daemon $prog_bin -c $config_path --pidfile $PIDFILE
         [ -f $PIDFILE ] && success $"$prog startup" || failure $"$prog startup"
         echo
 }
