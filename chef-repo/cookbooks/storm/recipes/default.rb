@@ -108,6 +108,13 @@ directory "/opt/storm/install/zookeeper/log" do
   action :create
 end
 
+directory "/tmp/zookeeper" do
+  owner 'storm'
+  group 'storm'
+  mode '0755'
+  action :create
+end
+
 execute 'extract_zookeeper' do
   command 'tar xzvf /opt/storm/software/zookeeper-3.4.6.tar.gz'
   cwd '/opt/storm/install/zookeeper'
