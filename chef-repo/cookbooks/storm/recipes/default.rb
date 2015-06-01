@@ -52,6 +52,7 @@ end
 
 cookbook_file "supervisord" do
   path "/etc/init.d/supervisord"
+  mode '0755'
   action :create
 end
 
