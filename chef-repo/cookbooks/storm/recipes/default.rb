@@ -138,6 +138,5 @@ end
 #Enable supervisor last
 #
 service "supervisord" do
-  init_command "/etc/init.d/supervisord"
   action :enable
 end
