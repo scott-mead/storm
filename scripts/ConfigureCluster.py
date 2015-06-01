@@ -8,7 +8,8 @@ import sys
 #         ('hostuser@host2name','host2.internal.ip.addr'),
 #         etc... ]
 
-HOSTS=[('ec2-user@ec2-54-146-215-30.compute-1.amazonaws.com','10.136.20.218')]
+HOSTS=[('ec2-user@ec2-54-146-215-30.compute-1.amazonaws.com','10.136.20.218'),
+       ('ec2-user@ec2-54-234-22-242.compute-1.amazonaws.com','10.138.15.49')]
 
 # Build HOSTS file for this cluster
 

@@ -44,6 +44,12 @@ cookbook_file "supervisord.conf" do
   action :create
 end
 
+file "/var/run/supervisord.pid" do
+  owner 'storm'
+  group 'storm'
+  action :touch
+end
+
 cookbook_file "supervisord" do
   path "/etc/init.d/supervisord"
   action :create
