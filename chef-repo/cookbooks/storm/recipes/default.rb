@@ -55,10 +55,6 @@ cookbook_file "supervisord" do
   action :create
 end
 
-service "supervisord" do
-  init_command "/etc/init.d/supervisord"
-  action :enable
-end
 
 # Create the software installation directory
 directory "/opt/storm/install" do
@@ -138,3 +134,10 @@ cookbook_file "zoo.cfg" do
 end
 
 
+##
+#Enable supervisor last
+#
+service "supervisord" do
+  init_command "/etc/init.d/supervisord"
+  action :enable
+end
