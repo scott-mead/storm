@@ -9,7 +9,8 @@ import sys
 #         etc... ]
 
 HOSTS=[('ec2-user@ec2-54-146-215-30.compute-1.amazonaws.com','10.136.20.218'),
-       ('ec2-user@ec2-54-234-22-242.compute-1.amazonaws.com','10.138.15.49')]
+       ('ec2-user@ec2-54-234-22-242.compute-1.amazonaws.com','10.138.15.49'),
+       ('ec2-user@ec2-54-234-29-0.compute-1.amazonaws.com','10.140.210.32')]
 
 # Build HOSTS file for this cluster
 

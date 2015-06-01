@@ -18,9 +18,9 @@ do
     fi
 done
 
-diff /home/ec2-user/*.myid /tmp/zookeeper/myid
+sudo diff /home/ec2-user/*.myid /tmp/zookeeper/myid
 
 if [ "$?" -ne 0 ] 
 then
-    cp /home/ec2-user/*.myid /tmp/zookeeper/myid
+    sudo cp /home/ec2-user/*.myid /tmp/zookeeper/myid
 fi
