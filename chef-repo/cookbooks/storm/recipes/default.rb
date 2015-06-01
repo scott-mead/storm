@@ -138,5 +138,5 @@ end
 #Enable supervisor last
 #
 service "supervisord" do
-  action :enable
+  action [:enable, :start]
 end
