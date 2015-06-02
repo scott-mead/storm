@@ -183,13 +183,11 @@ end
 
 ##
 # The nimbus is only running on the master
+#  Only create the file if myid is a 1
 #
 cookbook_file "storm-nimbus.conf" do
-  file = File.open("/tmp/zookeeper/myid", "rb")
-  contents = file.read
-  # If the myid file is 1, we are nimbus
-  contents == 1
-  path "/etc/supervisord.d/storm.conf"
+  not_if { (File.readlines('/tmp/zookeeper/myid'))[0].strip! !="1" }
+  path "/etc/supervisord.d/storm-nimbus.conf"
   action :create
 end
 
