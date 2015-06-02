@@ -141,6 +141,62 @@ cookbook_file "zoo.cfg" do
   action :create
 end
 
+###
+# Setup Storm
+###
+directory "/opt/storm/install/storm" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
+directory "/opt/storm/install/storm/log" do
+  owner 'storm'
+  group 'storm'
+  mode '0755'
+  action :create
+end
+
+directory "/tmp/zookeeper" do
+  owner 'storm'
+  group 'storm'
+  mode '0755'
+  action :create
+end
+
+execute 'extract_storm' do
+  command 'tar xzvf /opt/storm/software/apache-storm-0.9.4.tar.gz'
+  cwd '/opt/storm/install/storm'
+  not_if { File.exists?("/opt/storm/install/storm/0.9.4") }
+end
+
+execute 'mv_storm' do
+  command 'mv apache-storm-0.9.4 0.9.4'
+  cwd '/opt/storm/install/storm'
+  not_if { File.exists?("/opt/storm/install/storm/0.9.4") }
+end
+
+link "/opt/storm/install/storm/current" do
+  to "/opt/storm/install/storm/0.9.4"
+end
+
+##
+# The nimbus is only running on the master
+#
+cookbook_file "storm-nimbus.conf" do
+  file = File.open("/tmp/zookeeper/myid", "rb")
+  contents = file.read
+  {contents == 1}
+  path "/etc/supervisord.d/storm.conf"
+  action :create
+end
+
+cookbook_file "storm.cfg" do
+  path "/opt/storm/install/storm/current/conf/storm.cfg"
+  action :create
+end
+
 
 ##
 #Enable supervisor last
