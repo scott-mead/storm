@@ -187,7 +187,8 @@ end
 cookbook_file "storm-nimbus.conf" do
   file = File.open("/tmp/zookeeper/myid", "rb")
   contents = file.read
-  {contents == 1}
+  # If the myid file is 1, we are nimbus
+  contents == 1
   path "/etc/supervisord.d/storm.conf"
   action :create
 end
