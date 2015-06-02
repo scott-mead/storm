@@ -193,8 +193,8 @@ cookbook_file "storm-nimbus.conf" do
   action :create
 end
 
-cookbook_file "storm.cfg" do
-  path "/opt/storm/install/storm/current/conf/storm.cfg"
+cookbook_file "storm.yaml" do
+  path "/opt/storm/install/storm/current/conf/storm.yaml"
   action :create
 end
 
