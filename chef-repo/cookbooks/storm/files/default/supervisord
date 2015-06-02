@@ -25,8 +25,19 @@ PIDFILE="/var/run/$prog.pid"
 start()
 {
         echo -n $"Starting $prog: "
+
         daemon $prog_bin -c $config_path --pidfile $PIDFILE
-        [ -f $PIDFILE ] && success $"$prog startup" || failure $"$prog startup"
+
+        sleep 2
+
+        test -f $PIDFILE
+             if [ "$?" -eq 0 ] 
+             then
+                success $"$prog startup" 
+        else
+                failure $"$prog startup"
+        fi
+
         echo
 }
 
