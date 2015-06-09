@@ -193,7 +193,7 @@ bash 'set_nimbus' do
 
   if [ $var -eq 1 ] 
   then
-      cp /opt/storm/chef-repo/cookbooks/storm/files/default/storm-nimbus.conf /etc/supervisor.d/
+      cp /opt/storm/chef-repo/cookbooks/storm/files/default/storm-nimbus.conf /etc/supervisord.d/
   fi 
   EOH
 end
