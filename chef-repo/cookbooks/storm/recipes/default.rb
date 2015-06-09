@@ -188,7 +188,7 @@ end
 cookbook_file "storm-nimbus.conf" do
   path "/etc/supervisord.d/storm-nimbus.conf"
   action :create
-  only_if {'head -n 1 /var/zookeeper/myid | grep ^1$' }
+  only_if 'head -n 1 /var/zookeeper/myid | grep ^1$'
 end
 
 cookbook_file "storm-supervisor.conf" do
