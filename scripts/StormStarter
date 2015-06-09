@@ -84,7 +84,7 @@ scriptdir = os.path.dirname(os.path.realpath(__file__))
 # if it doesn't exist, create it
 try:
     os.chdir ( scriptdir + '/' + opts.group )
-except IOError: 
+except OSError: 
     os.mkdir ( scriptdir + '/' + opts.group )
 
 counter=1
@@ -112,7 +112,7 @@ COMMANDS=['sudo bash /home/ec2-user/placehosts.sh %s',
           'which chef-solo || sudo yum -y localinstall https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-12.0.3-1.x86_64.rpm',
           'which git || sudo yum -y install git',
           'cd /opt/storm && sudo git pull',
-          'cd /opt/ || sudo git clone https://github.com/scott-mead/storm.git',
+          'cd /opt/ && sudo git clone https://github.com/scott-mead/storm.git',
           'cd /opt/storm/chef-repo && sudo chef-solo -c solo.rb -j solo.json']
 
 for HOST in HOSTS:
