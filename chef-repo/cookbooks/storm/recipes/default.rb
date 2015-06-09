@@ -201,6 +201,10 @@ cookbook_file "storm.yaml" do
   action :create
 end
 
+link "/opt/storm/install/storm/0.9.4/logs" do
+  to "/opt/storm/install/storm/logs"
+end
+
 directory "/var/storm" do
   owner 'storm'
   group 'storm'
