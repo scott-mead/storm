@@ -186,9 +186,9 @@ end
 #  Only create the file if myid is a 1
 #
 cookbook_file "storm-nimbus.conf" do
-#  not_if { (File.readlines('/tmp/zookeeper/myid'))[0].strip! !="1" }
   path "/etc/supervisord.d/storm-nimbus.conf"
   action :create
+  only_if { head -n 1 /var/zookeeper/myid | grep ^1$ }
 end
 
 cookbook_file "storm-supervisor.conf" do
