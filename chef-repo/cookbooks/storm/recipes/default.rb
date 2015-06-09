@@ -186,13 +186,25 @@ end
 #  Only create the file if myid is a 1
 #
 cookbook_file "storm-nimbus.conf" do
-  not_if { (File.readlines('/tmp/zookeeper/myid'))[0].strip! !="1" }
+#  not_if { (File.readlines('/tmp/zookeeper/myid'))[0].strip! !="1" }
+  path "/etc/supervisord.d/storm-nimbus.conf"
+  action :create
+end
+
+cookbook_file "storm-supervisor.conf" do
   path "/etc/supervisord.d/storm-nimbus.conf"
   action :create
 end
 
 cookbook_file "storm.yaml" do
   path "/opt/storm/install/storm/current/conf/storm.yaml"
+  action :create
+end
+
+directory "/var/storm" do
+  owner 'storm'
+  group 'storm'
+  mode '0755'
   action :create
 end
 
