@@ -202,7 +202,7 @@ cookbook_file "storm.yaml" do
 end
 
 link "/opt/storm/install/storm/0.9.4/logs" do
-  to "/opt/storm/install/storm/logs"
+  to "/opt/storm/install/storm/log"
 end
 
 directory "/var/storm" do
