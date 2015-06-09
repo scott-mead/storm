@@ -1,0 +1,27 @@
+test_cluster_a:
+    username : "ec2-user"
+    node1:
+        # External hostname that can be hit from the C&C machine
+        hostname : "cluster1.example.com"
+        # Internal IP for use by cluster communication
+        int_ip   : "10.8.8.2"
+        # Assign a name to the node, do not modify this
+        int_name : "cluster1"
+    node2:
+        hostname : "cluster2.example.com"
+        int_ip   : "10.138.15.49"
+        int_name : "cluster2"
+    node3:
+        hostname : "cluster3.example.com"
+        int_ip   : "10.8.8.3"
+        int_name : "cluster3"
+    node4:
+        hostname : "cluster4.example.com"
+        int_ip   : "10.8.8.4"
+        int_name : "cluster4"
+    node5:
+        hostname : "cluster5.example.com"
+        int_ip   : "10.8.8.5"
+        int_name : "cluster5"
+  
+
