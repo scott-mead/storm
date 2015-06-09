@@ -192,7 +192,7 @@ cookbook_file "storm-nimbus.conf" do
 end
 
 cookbook_file "storm-supervisor.conf" do
-  path "/etc/supervisord.d/storm-nimbus.conf"
+  path "/etc/supervisord.d/storm-supervisor.conf"
   action :create
 end
 
