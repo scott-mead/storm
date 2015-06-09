@@ -6,6 +6,12 @@ import os
 import yaml
 import argparse
 
+'''
+exec_ssh
+Designed to execute a shell command on a remote host using ssh
+ Assumes that you have setup an ssh key in $HOME/.ssh/config
+
+'''
 def exec_ssh(COMMAND,thehost):
     ssh = subprocess.Popen(["ssh","-t", "%s" % thehost, COMMAND],
                            shell=False,
@@ -16,6 +22,11 @@ def exec_ssh(COMMAND,thehost):
     for line in ssh.stdout.readlines():
         sys.stdout.write('\t\t'+line)
 
+'''
+exec_scp
+Sends a file to a remote host
+  Assumes that you have setup an ssh key in $HOME/.ssh/config
+'''
 def exec_scp(FILE,thehost):
     cathost = subprocess.Popen(["scp", FILE,"%s:" % thehost],
                                shell=False,
@@ -23,6 +34,7 @@ def exec_scp(FILE,thehost):
                                stderr=subprocess.PIPE)
     print(cathost.stdout.readlines()) 
 
+# Setup the command line options
 parser = argparse.ArgumentParser()
 
 parser.add_argument ('ACTION',choices=['provision','start','stop','restart','status'])
@@ -31,20 +43,25 @@ parser.add_argument ( '-g','--group',help='Name of the server group',action='sto
 
 opts = parser.parse_args()
 
-print(opts.config)
-print(opts.group)
+#DEBUG
+#print(opts.config)
+#print(opts.group)
 
+# Open the configuration file
 with open(opts.config, 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
+# Validate that the specified host group is found
 if not opts.group in cfg:
     print("Group " + opts.group + " Not found")
     exit(1)
 
 HOSTS=[]
 
+# Get all the hosts in the group
 for host in cfg[opts.group]:
-    if host == 'username' :
+    # hack to get a global username
+    if host == 'username': 
         username=cfg[opts.group][host]
     else:
     # print(cfg[opts.group][host]['hostname'])
@@ -52,7 +69,7 @@ for host in cfg[opts.group]:
 
 # Sort by node index
 HOSTS.sort(key=lambda tup: tup[2])
-print(HOSTS)
+#print(HOSTS)
 
 #       ('ec2-user@ec2-54-226-106-186.compute-1.amazonaws.com','10.151.47.49')]
 
@@ -60,8 +77,11 @@ print(HOSTS)
 
 scriptdir = os.path.dirname(os.path.realpath(__file__))
 
-print(scriptdir)
+# DEBUG
+#print(scriptdir)
 
+# Change to the dir for this cluster
+# if it doesn't exist, create it
 try:
     os.chdir ( scriptdir + '/' + opts.group )
 except IOError: 
@@ -87,13 +107,14 @@ for HOST in HOSTS:
     counter+=1
 fo.close()
 
-# Ports are handled in ~/.ssh/config since we use OpenSSH
+# Execute these commands in order to build the cluster
 COMMANDS=['sudo bash /home/ec2-user/placehosts.sh %s',
           'which chef-solo || sudo yum -y localinstall https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-12.0.3-1.x86_64.rpm',
           'which git || sudo yum -y install git',
           'cd /opt/storm && sudo git pull',
           'cd /opt/ || sudo git clone https://github.com/scott-mead/storm.git',
-          'cd /opt/storm/chef-repo && sudo chef-solo -c solo.rb -j solo.json']
+          'cd /opt/storm/chef-repo && sudo chef-solo -c solo.rb -j solo.json',
+          'cat /tmp/zookeeper/myid -eq 1 && cp /opt/storm/chef-repo/cookbooks/storm/files/default/storm-nimbus.conf /etc/supervisord.d/']
 
 for HOST in HOSTS:
     thehost=username + '@' + HOST[0]
