@@ -185,10 +185,17 @@ end
 # The nimbus is only running on the master
 #  Only create the file if myid is a 1
 #
-cookbook_file "storm-nimbus.conf" do
-  path "/etc/supervisord.d/storm-nimbus.conf"
-  action :create
-  only_if 'head -n 1 /var/zookeeper/myid | grep ^1$'
+bash 'set_nimbus' do
+  user 'root'
+  cwd '/opt/storm'
+  code <<-EOH
+  var=`cat /tmp/zookeeper/myid`
+
+  if [ $var -eq 1 ] 
+  then
+      cp /opt/storm/chef-repo/cookbooks/storm/files/default/storm-nimbus.conf /etc/supervisor.d/
+  fi 
+  EOH
 end
 
 cookbook_file "storm-supervisor.conf" do
